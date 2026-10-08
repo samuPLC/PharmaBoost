@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0e6158"><meta name="description" content="Consulta los productos de PharmaBoost sin crear una cuenta.">
+  <title>Catálogo público · PharmaBoost</title>
+  <link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/catalogo.css">
+<link rel="stylesheet" href="/product-images.css"><link rel="stylesheet" href="/enhancements.css"><script src="/theme.js"></script></head>
+<body>
+  <header class="public-header"><a href="/catalogo.html" class="brand"><span class="brand-symbol">+</span>PharmaBoost</a><a href="/" class="button secondary">Iniciar sesión</a></header>
+  <main class="public-main">
+    <section class="public-hero"><p class="eyebrow">DEUTSCHE PHARMA</p><h1>Encuentra tu próximo producto.</h1><p>Explora nuestro catálogo, conoce cada presentación y consulta sus precios. Sin necesidad de crear una cuenta.</p></section>
+    <form id="filters" class="public-filters" role="search">
+      <label>Buscar productos<input id="search" type="search" placeholder="Nombre o descripción" maxlength="200"></label>
+      <label>Categoría<select id="category"><option value="">Todas las categorías</option></select></label>
+      <label>Fabricante<select id="manufacturer"><option value="">Todos los fabricantes</option></select></label>
+      <label>Ordenar<select id="sort"><option value="name">Nombre A–Z</option><option value="price-up">Menor precio</option><option value="price-down">Mayor precio</option></select></label>
+    </form>
+    <div id="status" role="status" aria-live="polite">Cargando productos…</div>
+    <div id="products" class="public-grid"></div>
+    <nav id="pagination" class="public-pagination" aria-label="Páginas del catálogo"></nav>
+    <p class="note public-note">Los pedidos se registran desde una cuenta autorizada. Los precios se muestran en pesos colombianos.</p>
+  </main>
+  <footer class="public-footer">PharmaBoost · Deutsche Pharma <a href="/">Acceso al equipo comercial →</a></footer>
+  <dialog id="detail" aria-labelledby="detail-title"></dialog>
+  <script type="module" src="/catalogo.js"></script>
+</body>
+</html>
+

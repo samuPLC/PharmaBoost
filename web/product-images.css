@@ -1,0 +1,8 @@
+/* Marco compartido por el catálogo interno, público y la vista previa. */
+.product-art,.public-art{height:244px;background:#fff;border-bottom:1px solid #edf1ed;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:32px 22px 18px}
+.product-art .product-img,.public-art img{display:block;width:100%;height:100%;max-width:250px;max-height:185px;object-fit:contain;object-position:center;padding:0;background:white}
+.product-category{z-index:1;left:14px;top:12px;background:#eef5f1;color:#37645a;border:1px solid #deebe3}
+.product-card{display:flex;flex-direction:column}.product-info{display:flex;flex-direction:column;flex:1}.product-bottom{margin-top:auto}
+.photo-preview{height:240px;background:white;border:1px solid var(--line);padding:20px}.photo-preview img{object-fit:contain;max-height:200px;object-position:center}
+#detail .public-art{height:300px;padding:20px}#detail .public-art img{max-height:260px;max-width:320px}
+@media(max-width:600px){.product-grid{grid-template-columns:1fr}.product-art,.public-art{height:220px}.product-art .product-img,.public-art img{max-height:170px;max-width:230px}.product-info{padding:20px}.product-info h2{font-size:1rem}.product-info p{min-height:0}.product-bottom strong{font-size:1.15rem}}

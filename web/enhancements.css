@@ -1,0 +1,49 @@
+.theme-toggle{position:fixed;right:20px;bottom:18px;z-index:50;border:1px solid var(--line);border-radius:30px;background:var(--white);color:var(--ink);padding:11px 16px;box-shadow:0 4px 18px #0002;cursor:pointer;font:inherit;font-size:.8rem}.theme-toggle:focus-visible{outline:3px solid var(--green);outline-offset:3px}.app-footer,.public-footer{padding-bottom:70px}
+.tracking-panel{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}.tracking-panel form{margin-top:18px}.tracking-history{padding-left:22px}.tracking-history li{margin:12px 0;font-size:.85rem}.tracking-history small{display:block;color:var(--muted)}.commercial-badge{display:block;margin-top:6px;font-size:.75rem;color:var(--green);font-weight:600}.report-tables{display:grid;grid-template-columns:1fr 1fr;gap:20px}.report-tables .panel{min-width:0}.report-note{margin:18px 0}.print-only{display:none}
+[data-theme=dark]{color-scheme:dark;--green:#8cdbc9;--dark:#d4f0e8;--ink:#e3eee9;--muted:#b0c4bc;--line:#344b43;--bg:#101c18;--white:#1b2b25}
+[data-theme=dark] :is(.sidebar,.topbar,.panel,.stat-card,.store-card,.product-card,.promotion-card,.login-form,.public-header,dialog,input,select,textarea,.search-field,.button.secondary,.photo-upload){background:var(--white);color:var(--ink);border-color:var(--line)}
+[data-theme=dark] :is(h1,h2,h3,strong,label,td,th,.brand,.nav-link,.breadcrumb,.user-control,.detail-grid strong,.promotion-numbers strong,.empty h3,.text-link){color:var(--ink)}
+[data-theme=dark] :is(.muted,.note,small,.stat-detail,.stat-top,.detail-grid>span,.product-info p,.empty p,.queue-row p,.public-count,.app-footer,.public-footer,.login-footnote){color:var(--muted)}
+[data-theme=dark] :is(.nav-link.active,.offline-card,.stat-icon,.connection,.event-label,.badge,.notice,.notice.amber,.sync-big-icon){background:#294238;color:#d1eadc;border-color:#46644f}
+[data-theme=dark] :is(.login-story,.campaign-feature,.public-hero){background:#124f47;color:#fff}
+[data-theme=dark] .button.primary{background:#8cdbc9;color:#102820}[data-theme=dark] .button.lime{color:#193225}[data-theme=dark] .product-art{background:#22372e;border-color:var(--line)}[data-theme=dark] .product-category{color:#d1eadc;background:#294238;border-color:#46644f}[data-theme=dark] :is(.product-art .product-img,.public-art img){background:#fff;border-radius:12px;padding:10px;box-shadow:0 5px 16px #0002}
+[data-theme=dark] th{background:#22372e}[data-theme=dark] .search-field input{background:transparent}[data-theme=dark] .form-error{color:#ffaaa0}[data-theme=dark] .detail-grid{border-color:var(--line)}
+[data-theme=dark] :is(.public-product,.public-empty){background:var(--white)}[data-theme=dark] .public-art{background:#22372e;border-color:var(--line)}
+[data-theme=dark] .photo-preview{background:#22372e;border-color:var(--line)}[data-theme=dark] .photo-preview img{background:#fff;border-radius:12px;padding:10px}
+@media(max-width:700px){.report-tables{grid-template-columns:1fr}.theme-toggle{right:12px;bottom:12px;padding:10px 13px}}
+@media print{
+ #print-receipt *{color:#000!important}dialog::backdrop{display:none!important}
+ @page{margin:16mm}body{background:#fff!important;color:#000!important}body>*{display:none!important}body>#print-receipt{display:block!important;background:#fff!important;color:#000!important;font:11pt Arial,sans-serif}#print-receipt h1{font-size:22pt;color:#000}#print-receipt table{width:100%;border-collapse:collapse}#print-receipt td,#print-receipt th{padding:9px;border-bottom:1px solid #ccc;color:#000;background:#fff}#print-receipt tr{break-inside:avoid}#print-receipt thead{display:table-header-group}#print-receipt p{line-height:1.5}#print-receipt .receipt-total{text-align:right;font-size:16pt}
+}
+.theme-toggle{position:static;inset:auto;z-index:auto;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;padding:0;border-radius:10px;box-shadow:none;flex-shrink:0;background:var(--white);color:var(--ink)}
+.topbar{gap:16px}.header-tools{display:flex;align-items:center;gap:10px;margin-right:auto}.account-header{gap:20px;flex-shrink:0}.header-date{color:var(--muted);font-size:.8rem;white-space:nowrap}.account-link{display:flex;align-items:center;gap:10px;background:transparent;border:0;color:var(--muted);font:inherit;font-size:.9rem;cursor:pointer;padding:0;white-space:nowrap}.account-avatar{background:#dce6f2;color:#255a86;width:40px;height:40px;font-size:.8rem;margin-left:14px}.account-link:hover{color:var(--green)}.account-link:focus-visible{outline:3px solid var(--green);outline-offset:5px;border-radius:10px}[data-theme=dark] .account-avatar{background:#344c5f;color:#d9ecff}.login-form{position:relative}.login-form>.theme-toggle{position:absolute;top:20px;right:24px}.public-header>.theme-toggle{margin-left:12px}.app-footer{padding-bottom:24px}.public-footer{padding-bottom:28px}
+@media(max-width:1300px){.header-date{display:none}.account-header{gap:14px}.header-tools{gap:8px}}
+@media(max-width:700px){.topbar{gap:8px}.header-tools{margin-left:auto;margin-right:0;gap:6px}.header-tools .connection span{display:none}.account-header{gap:8px}.account-label,.account-link>svg{display:none}.account-avatar{margin-left:0;width:34px;height:34px}.theme-toggle{width:36px;height:36px;padding:0}.notification-button{font-size:.65rem;padding:7px}.breadcrumb strong{max-width:95px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.public-header{gap:8px}.public-header>.theme-toggle{margin-left:0}}
+.report-filter{padding:24px;margin-bottom:20px}.report-filter .toolbar{align-items:flex-end;margin-bottom:0}.report-filter .note{margin:0}.report-filter label{flex:1;min-width:150px}.report-filter input,.report-filter select{width:100%}.report-filter .form-error:empty{display:none}
+.operation-history{margin-top:24px}.favorite-button{margin-bottom:12px}.favorite-button[aria-pressed=true]{border-color:var(--green);color:var(--green)}.notification-button{font-size:.75rem;padding:8px 10px}.sidebar{overflow-y:auto}.padded>h2{padding-top:20px}.public-product .favorite-button{margin-bottom:12px}
+/* Login: decorative particles repel the cursor. No parallax. */
+.login-story{position:relative;isolation:isolate;overflow:hidden}
+.repel-layer{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.repel-layer i{position:absolute;display:block;border-radius:50%;background:#d9f392;opacity:.4;transition:transform .28s ease-out}
+.repel-layer i:nth-child(3n){background:#9fe4d8;opacity:.55}.repel-layer i:nth-child(5n){opacity:.25}
+@media(prefers-reduced-motion:reduce){.repel-layer i{transition:none}}
+/* Sliding diagonal panel between sign in and registration. */
+.auth-switch{position:relative;overflow:hidden;background:var(--white);min-height:100svh}
+.auth-switch .login-story{grid-column:2;grid-row:1;z-index:2;min-width:0;padding:48px clamp(28px,3vw,60px) 40px calc(8vw + 28px);clip-path:polygon(0 0,100% 0,100% 100%,16% 100%);transition:transform .65s cubic-bezier(.65,0,.35,1),clip-path .65s ease;will-change:transform}
+.auth-switch .login-story h1{font-size:clamp(2.5rem,4.3vw,4rem)}
+.auth-switch .login-story>div{padding:55px 0}
+.auth-switch .login-form{grid-column:1;grid-row:1;min-width:0;transition:transform .65s cubic-bezier(.65,0,.35,1);padding:65px 50px}
+.auth-switch.is-register .login-story{transform:translateX(-100%);clip-path:polygon(0 0,100% 0,84% 100%,0 100%);padding-left:clamp(28px,3vw,60px);padding-right:calc(8vw + 28px)}
+.auth-switch.is-register .login-form{transform:translateX(100%)}
+.auth-switch .login-card[hidden]{display:none}
+.auth-switch .login-card:not([hidden]){animation:auth-reveal .65s ease both}
+.auth-register .modal-actions{flex-direction:column-reverse;align-items:stretch;margin-top:0}.auth-register .note{margin:0}.auth-register form{gap:14px}.auth-register>h2{margin-top:12px}.auth-register>.muted{margin-bottom:18px}
+.auth-switch .login-card h2:focus{outline:none}
+@keyframes auth-reveal{0%{opacity:0;transform:translateY(16px)}40%{opacity:0}100%{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.auth-switch{display:flex;flex-direction:column}.auth-switch .login-story,.auth-switch.is-register .login-story{transform:none;clip-path:none;padding:25px}.auth-switch .login-story>div{padding:22px 0 0}.auth-switch .login-story h1{font-size:2.2rem;margin:12px 0}.auth-switch .login-story .login-points,.auth-switch .login-story>small{display:none}.auth-switch .login-form,.auth-switch.is-register .login-form{transform:none;padding:65px 25px 35px}.auth-switch .login-card{max-width:430px}.auth-switch .login-story>div>p{margin-bottom:0}}
+@media(prefers-reduced-motion:reduce){.auth-switch .login-card:not([hidden]){animation:none}.auth-switch .login-form,.auth-switch .login-story{transition:none}}
+
+.auth-login>#login-form{margin-bottom:12px}.auth-login>.register-link+.register-link{margin-top:10px}.auth-login>.login-footnote{margin-top:16px}
+
+.report-sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.report-section{text-align:left;color:inherit;cursor:pointer;padding:24px}.report-section h2{font-size:20px}.report-section span{color:var(--primary);font-weight:700}.report-filter .toolbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:end;gap:16px}.report-filter label{min-width:0}.report-filter input,.report-filter select{width:100%}.search-count{display:block;margin-top:6px}
+@media print{.report-print table{width:100%;border-collapse:collapse;font-size:8pt;table-layout:fixed}.report-print th,.report-print td{border:1px solid #bbb;padding:5px;white-space:normal;overflow-wrap:anywhere;color:#111}.report-print thead{display:table-header-group}.report-print tr{break-inside:avoid}.report-print dl{display:grid;grid-template-columns:2fr 1fr;font-size:10pt}.report-print dt,.report-print dd{margin:0;padding:4px;border-bottom:1px solid #ddd}.report-print p{font-size:9pt}}

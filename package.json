@@ -1,0 +1,20 @@
+{
+  "name": "pharmaboost-js",
+  "version": "2.28.0",
+  "private": true,
+  "type": "module",
+  "description": "PharmaBoost con HTML, CSS, JavaScript y MySQL",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "setup": "node --env-file-if-exists=.env scripts/setup.js",
+    "test": "node --test tests/*.test.js",
+    "test:operations": "node --env-file-if-exists=.env tests/operations.integration.js",
+    "test:integration": "node --env-file-if-exists=.env tests/integration.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.14.0"
+  }
+}

@@ -1,0 +1,2 @@
+export function favorites(user='guest'){try{const ids=JSON.parse(localStorage.getItem('pb-favorites:'+user)||'[]');return new Set(Array.isArray(ids)?ids.filter(Number.isInteger):[]);}catch{return new Set();}}
+export function toggleFavorite(id,user='guest'){const saved=favorites(user);saved.has(id)?saved.delete(id):saved.add(id);localStorage.setItem('pb-favorites:'+user,JSON.stringify([...saved]));return saved.has(id);}

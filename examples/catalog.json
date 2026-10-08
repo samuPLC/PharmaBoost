@@ -1,0 +1,6 @@
+{
+  "records": [
+    {"external_code":"ABA-001","name":"Vitamina C 500 mg","description":"Presentación de demostración · caja x 30 tabletas","price":24900,"category":"Bienestar","manufacturer_id":1,"image_url":""},
+    {"external_code":"ABA-009","name":"Crema de manos","description":"Presentación de demostración · tubo x 60 g","price":18900,"category":"Cuidado diario","manufacturer_id":1,"image_url":""}
+  ]
+}
