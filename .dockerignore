@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+node_modules
+artifacts
+.qa
+.kilo
+.vercel
+docs
+tests

@@ -1,5 +1,9 @@
 # PharmaBoost 2.28
 
+## Actualización de despliegue 2.29
+
+Configuración Node.js y MySQL para Railway y frontend para Vercel. Sigue [la guía actualizada](docs/RAILWAY_VERCEL.md). La instalación de producción crea un administrador propio sin cargar cuentas de ejemplo. Informe: docs/PharmaBoost_Cambios_v2_29.docx.
+
 ## Versión 2.28 — 3 de octubre de 2026
 
 Centro de reportes con cinco apartados, filtros específicos, buscador de productos en reportes y movimientos, filtros legibles en exportaciones e impresión tabular. 21 pruebas unitarias aprobadas; tarjetas y búsqueda verificadas en navegador. Informe: docs/PharmaBoost_Cambios_v2_28.docx. Recarga con Ctrl+F5; sin migración MySQL.
