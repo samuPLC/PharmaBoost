@@ -1,5 +1,9 @@
 # PharmaBoost 2.28
 
+## Actualización 2.33
+
+CRUD de tiendas para Administración, con código único y eliminación protegida por referencias e historial. Sin migración de MySQL. Informe: docs/PharmaBoost_Cambios_v2_33.docx.
+
 ## Actualización 2.32
 
 Agentes: tiendas y promociones asignadas vigentes. Responsable del pedido tomado de la tienda y protegido en servidor. Inventario: Editar foto para el administrador. Sin migración MySQL; cuentas actuales sin cambios. Informe: docs/PharmaBoost_Cambios_v2_32.docx.

@@ -1,3 +1,4 @@
+import {saveStore,deleteStore} from './stores.js';
 import {saveSupplier} from './suppliers.js';
 import {checkLogin} from './login-guard.js';
 import {createLimiter} from './rate-limit.js';
@@ -38,7 +39,8 @@ async function dispatch(db,req,res,url,d){
  if(route==='/api/returns'&&method==='POST')return returnItems(db,u,d);
  if(route==='/api/orders'&&method==='POST')return service.submitOrder(db,u,d);
  if(route==='/api/visits'&&method==='POST')return service.saveVisit(db,u,d);
- for(const [resource,fn] of [['suppliers',saveSupplier],['promotions',service.savePromotion],['users',service.saveUser],['products',service.saveProduct]]){
+ const deleteMatch=route.match(/^\/api\/stores\/(\d+)$/);if(deleteMatch&&method==='DELETE')return deleteStore(db,u,Number(deleteMatch[1]));
+ for(const [resource,fn] of [['stores',saveStore],['suppliers',saveSupplier],['promotions',service.savePromotion],['users',service.saveUser],['products',service.saveProduct]]){
   const match=route.match(new RegExp('^/api/'+resource+'(?:/(\\d+))?$'));if(match&&((!match[1]&&method==='POST')||(match[1]&&method==='PUT')))return fn(db,u,d,match[1]?Number(match[1]):undefined);
  }
  const review=route.match(/^\/api\/registration-requests\/(\d+)$/);if(review&&method==='POST')return service.reviewRegistration(db,u,Number(review[1]),d);
@@ -65,7 +67,7 @@ const server=http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');
   if(url.pathname.startsWith('/api/')){
    res.setHeader('Cache-Control','no-store');let data={};
-   if(!['GET','POST','PUT'].includes(req.method))throw new Problem('Método no permitido.',405);
+   if(!['GET','POST','PUT','DELETE'].includes(req.method))throw new Problem('Método no permitido.',405);
    if(req.method!=='GET'){
     if(req.headers['x-pharmaboost']!=='1')throw new Problem('Solicitud no autorizada.',403);
     const origin=process.env.APP_ORIGIN||`http://localhost:${process.env.PORT||3080}`;

@@ -1,4 +1,4 @@
-const CACHE='pharmaboost-js-shell-v2-32';
+const CACHE='pharmaboost-js-shell-v2-33';
 const ASSETS=['/','/index.html','/styles.css','/product-images.css','/app.js','/assignments.js','/login-motion.js','/storage.js','/commercial.js','/report-engine.js','/report-xlsx.js','/pricing.js','/favorites.js','/report-pdf.js','/vendor/pdf-lib.min.js','/theme.js','/enhancements.css','/icon.svg','/manifest.webmanifest'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('pharmaboost-js-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
