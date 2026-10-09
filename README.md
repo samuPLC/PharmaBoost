@@ -1,5 +1,9 @@
 # PharmaBoost 2.28
 
+## Actualización 2.32
+
+Agentes: tiendas y promociones asignadas vigentes. Responsable del pedido tomado de la tienda y protegido en servidor. Inventario: Editar foto para el administrador. Sin migración MySQL; cuentas actuales sin cambios. Informe: docs/PharmaBoost_Cambios_v2_32.docx.
+
 ## Actualización 2.31
 
 Buscador por nombre o código en Nuevo pedido, limitado a productos de la promoción aún no agregados. Ignora tildes y mayúsculas. Informe: docs/PharmaBoost_Cambios_v2_31.docx.

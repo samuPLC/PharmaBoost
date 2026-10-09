@@ -1,3 +1,4 @@
+import {workPromotions} from '../web/assignments.js';
 import {listSuppliers} from './suppliers.js';
 import {events,productState,saveDiscount,saveProductConfig} from './operations.js';
 import {unitPrice} from '../web/pricing.js';
@@ -10,8 +11,9 @@ export async function audit(db,user,event,description,result='exito',store=null,
 async function exists(db,table,id){if(!(await q(db,`SELECT id FROM ${table} WHERE id=?`,[integer(id,table)])).length)throw new Problem('No existe el registro relacionado.');}
 export async function bootstrap(db,user){
  const agent=user.role==='agente';
- const promotions=await q(db,'SELECT p.*,m.name manufacturer_name FROM promotions p JOIN manufacturers m ON m.id=p.manufacturer_id'+(agent?' WHERE p.id IN(SELECT promotion_id FROM promotion_agents WHERE agent_id=?)':''),agent?[user.id]:[]);
+ let promotions=await q(db,'SELECT p.*,m.name manufacturer_name FROM promotions p JOIN manufacturers m ON m.id=p.manufacturer_id'+(agent?' WHERE p.id IN(SELECT promotion_id FROM promotion_agents WHERE agent_id=?)':''),agent?[user.id]:[]);
  for(const p of promotions)for(const [key,table,col] of [['product_ids','promotion_products','product_id'],['agent_ids','promotion_agents','agent_id'],['store_ids','promotion_stores','store_id']])p[key]=(await q(db,`SELECT ${col} id FROM ${table} WHERE promotion_id=?`,[p.id])).map(r=>r.id);
+ promotions=workPromotions(promotions,user);
  const products=await q(db,'SELECT p.*,m.name manufacturer_name FROM products p JOIN manufacturers m ON m.id=p.manufacturer_id');
  const ledger=await events(db);for(const p of products){const extra=productState(ledger,p.id);if(!['admin','ventas'].includes(user.role)){delete extra.average_cost;delete extra.markup;}Object.assign(p,extra);}
  const stores=await q(db,'SELECT * FROM stores');
@@ -35,6 +37,9 @@ export async function submitOrder(db,u,d){
  if(old){if(old.agent_id!==u.id||old.payload_hash!==digest)throw new Problem('El identificador ya corresponde a otro pedido.',409);return {id,status:old.status,duplicate:true};}
  const captured=captureTime(d.captured_at);await promotionAccess(db,u,d.promotion_id,d.store_id,captured);
  if(d.confirmed!==true)throw new Problem('El responsable debe confirmar el pedido.');
+ const [store]=await q(db,'SELECT manager FROM stores WHERE id=?',[d.store_id]);
+ if(!store?.manager?.trim()||store.manager.trim().length<2)throw new Problem('La tienda no tiene responsable registrado. Contacta al administrador.',409);
+ const confirmedBy=text(store,'manager',2,120);
  if(!Array.isArray(d.items)||!d.items.length||d.items.length>500)throw new Problem('Agrega entre 1 y 500 productos.');
  const pricingEvents=await events(db);const items=[],seen=new Set();let total=0,changed=false;
  for(const i of d.items){if(!i||typeof i!=='object'||Array.isArray(i))throw new Problem('Detalle de producto inválido.');integer(i.product_id,'producto');integer(i.quantity,'cantidad',1,10000);integer(i.unit_price,'precio');if(seen.has(i.product_id))throw new Problem('Producto repetido.');seen.add(i.product_id);
@@ -44,7 +49,7 @@ export async function submitOrder(db,u,d){
   total+=i.quantity*i.unit_price;if(!Number.isSafeInteger(total)||total>9999999999999999)throw new Problem('El total excede el límite.');items.push(i);
  }
  const status=changed?'revision':'enviado';
- await q(db,'INSERT INTO orders(id,agent_id,store_id,promotion_id,status,captured_offline,captured_at,sent_at,confirmed_by,notes,payload_hash,total,review_reason) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',[id,u.id,d.store_id,d.promotion_id,status,Boolean(d.captured_offline),captured,now(),text(d,'confirmed_by',2,120),text(d,'notes',0,1000),digest,total,changed?'Precio capturado sin conexión diferente al catálogo actual.':'']);
+ await q(db,'INSERT INTO orders(id,agent_id,store_id,promotion_id,status,captured_offline,captured_at,sent_at,confirmed_by,notes,payload_hash,total,review_reason) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',[id,u.id,d.store_id,d.promotion_id,status,Boolean(d.captured_offline),captured,now(),confirmedBy,text(d,'notes',0,1000),digest,total,changed?'Precio capturado sin conexión diferente al catálogo actual.':'']);
  for(const i of items)await q(db,'INSERT INTO order_items VALUES(?,?,?,?)',[id,i.product_id,i.quantity,i.unit_price]);
  await audit(db,u,'pedido','Pedido recibido '+id,status==='revision'?'aviso':'exito',d.store_id,d.promotion_id);return {id,status};
 }
