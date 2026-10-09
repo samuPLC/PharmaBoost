@@ -170,12 +170,3 @@ Incluye 20 productos. Los 12 nuevos tienen ilustraciones locales y precios inici
 ## Actividad inicial solicitada en 2.5
 
 Para cargar los seis pedidos de ejemplo y una visita sin pedido, ejecuta node --env-file=.env scripts/load-activity.js. Requiere las promociones iniciales activas, agentes, tiendas y productos asignados. No duplica registros y no envía pedidos a Abaco o DP. En el equipo de desarrollo esta carga ya fue aplicada.
-
-#   P h a r m a B o o s t 
- 
- 
-#   P h a r m a B o o s t 
- 
- #   P h a r m a B o o s t 
- 
- 
