@@ -1,5 +1,9 @@
 # PharmaBoost 2.28
 
+## Actualización 2.31
+
+Buscador por nombre o código en Nuevo pedido, limitado a productos de la promoción aún no agregados. Ignora tildes y mayúsculas. Informe: docs/PharmaBoost_Cambios_v2_31.docx.
+
 ## Actualización de despliegue 2.29
 
 Configuración Node.js y MySQL para Railway y frontend para Vercel. Sigue [la guía actualizada](docs/RAILWAY_VERCEL.md). La instalación de producción crea un administrador propio sin cargar cuentas de ejemplo. Informe: docs/PharmaBoost_Cambios_v2_29.docx.
@@ -167,8 +171,11 @@ Incluye 20 productos. Los 12 nuevos tienen ilustraciones locales y precios inici
 
 Para cargar los seis pedidos de ejemplo y una visita sin pedido, ejecuta node --env-file=.env scripts/load-activity.js. Requiere las promociones iniciales activas, agentes, tiendas y productos asignados. No duplica registros y no envía pedidos a Abaco o DP. En el equipo de desarrollo esta carga ya fue aplicada.
 
-#   P h a r m a B o o s t  
+#   P h a r m a B o o s t 
  
-#   P h a r m a B o o s t  
- #   P h a r m a B o o s t  
+ 
+#   P h a r m a B o o s t 
+ 
+ #   P h a r m a B o o s t 
+ 
  
