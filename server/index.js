@@ -1,3 +1,4 @@
+import {listCategories,saveCategory,deleteCategory} from './categories.js';
 import {saveStore,deleteStore} from './stores.js';
 import {saveSupplier} from './suppliers.js';
 import {checkLogin} from './login-guard.js';
@@ -41,7 +42,9 @@ async function dispatch(db,req,res,url,d){
  if(route==='/api/orders'&&method==='POST')return service.submitOrder(db,u,d);
  if(route==='/api/visits'&&method==='POST')return service.saveVisit(db,u,d);
  const deleteMatch=route.match(/^\/api\/stores\/(\d+)$/);if(deleteMatch&&method==='DELETE')return deleteStore(db,u,Number(deleteMatch[1]));
- for(const [resource,fn] of [['stores',saveStore],['suppliers',saveSupplier],['promotions',service.savePromotion],['users',service.saveUser],['products',service.saveProduct]]){
+ if(route==='/api/categories'&&method==='GET')return {categories:await listCategories(db)};
+ const categoryDelete=route.match(/^\/api\/categories\/(\d+)$/);if(categoryDelete&&method==='DELETE')return deleteCategory(db,u,Number(categoryDelete[1]));
+ for(const [resource,fn] of [['categories',saveCategory],['stores',saveStore],['suppliers',saveSupplier],['promotions',service.savePromotion],['users',service.saveUser],['products',service.saveProduct]]){
   const match=route.match(new RegExp('^/api/'+resource+'(?:/(\\d+))?$'));if(match&&((!match[1]&&method==='POST')||(match[1]&&method==='PUT')))return fn(db,u,d,match[1]?Number(match[1]):undefined);
  }
  const review=route.match(/^\/api\/registration-requests\/(\d+)$/);if(review&&method==='POST')return service.reviewRegistration(db,u,Number(review[1]),d);

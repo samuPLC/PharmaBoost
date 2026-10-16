@@ -80,3 +80,11 @@ CREATE TABLE IF NOT EXISTS product_images (
  id CHAR(48) PRIMARY KEY, product_id INT NOT NULL UNIQUE, content MEDIUMBLOB NOT NULL,
  created_at VARCHAR(30) NOT NULL, FOREIGN KEY(product_id) REFERENCES products(id)
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS categories (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(80) NOT NULL UNIQUE,
+ description VARCHAR(500) NOT NULL DEFAULT ''
+) ENGINE=InnoDB;
+INSERT INTO categories(name) SELECT DISTINCT category FROM products WHERE category<>''
+ON DUPLICATE KEY UPDATE name=categories.name;

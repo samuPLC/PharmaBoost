@@ -64,6 +64,7 @@ try{
  const restricted=await bootstrap(db,agent);assert.deepEqual(restricted.suppliers,[]);assert(restricted.products.every(p=>!Object.hasOwn(p,'average_cost')&&!Object.hasOwn(p,'markup')));
  await assert.rejects(saveUser(db,admin,{name:'Prueba QA',email:'qa@example.test',role:'agente',active:'false'}),e=>e.status===400);
  const product=(await q(db,'SELECT * FROM products WHERE id=?',[pid]))[0];
+ await q(db,"INSERT INTO categories(name) VALUES('Salud') ON DUPLICATE KEY UPDATE name=name");
  const metadata={external_code:product.external_code,name:'Nombre actualizado QA',description:'Descripción QA',category:'Salud',manufacturer_id:product.manufacturer_id};
  for(const financial of [{price:1},{stock:90},{stock_max:50},{discount_percent:20}])await assert.rejects(saveProduct(db,admin,{...metadata,...financial},pid),e=>e.status===400);
  await saveProduct(db,admin,metadata,pid);

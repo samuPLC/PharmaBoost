@@ -10,7 +10,7 @@ try {
  db=await mysql.createConnection({...config,database:undefined,user:process.env.DB_SETUP_USER||config.user,password:process.env.DB_SETUP_PASSWORD??config.password,multipleStatements:true});
  const sql=await readFile(new URL('../database/schema.sql',import.meta.url),'utf8');
  await db.query(sql);
- await db.beginTransaction();await seed(db);await db.commit();
+ await db.beginTransaction();await seed(db);await db.query("INSERT INTO categories(name) SELECT DISTINCT category FROM products WHERE category<>'' ON DUPLICATE KEY UPDATE name=categories.name");await db.commit();
  if(admin){
   const password=randomBytes(30).toString('base64url');
   // Cuenta dedicada. Un nombre aleatorio evita modificar cuentas existentes.

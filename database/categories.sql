@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS categories (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(80) NOT NULL UNIQUE,
+ description VARCHAR(500) NOT NULL DEFAULT ''
+) ENGINE=InnoDB;
+INSERT INTO categories(name) SELECT DISTINCT category FROM products WHERE category<>''
+ON DUPLICATE KEY UPDATE name=categories.name;
