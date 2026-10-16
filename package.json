@@ -1,6 +1,6 @@
 {
   "name": "pharmaboost-js",
-  "version": "2.35.0",
+  "version": "2.36.0",
   "private": true,
   "type": "module",
   "description": "PharmaBoost con HTML, CSS, JavaScript y MySQL",
