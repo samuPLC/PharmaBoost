@@ -1,4 +1,7 @@
-# PharmaBoost 2.39
+# PharmaBoost 2.40
+## Actualización 2.40 — Productos asociados a tiendas
+
+En **Tiendas → Ver tienda** se muestran los productos agrupados por las promociones asignadas a ese punto de venta, con categoría, código y vigencia. La lista describe asignaciones comerciales; no representa existencias físicas. Sin cambios en MySQL ni cuentas. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_40.docx.
 ## Actualización 2.39 — Lista de devoluciones pendientes
 
 Los pedidos entregados desaparecen del selector cuando ya se devolvieron todas sus unidades; las devoluciones parciales permanecen hasta completar las cantidades. El historial conserva todos los registros. Mensaje vacío diferenciado cuando todavía no hay pedidos entregados o cuando ya no quedan unidades pendientes. Sin cambios MySQL ni de cuentas. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_39.docx.
