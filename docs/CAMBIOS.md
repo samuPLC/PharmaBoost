@@ -1,4 +1,22 @@
 # Historial de cambios
+## Actualización 2.38 — Ganancia por tienda y filtro de categorías
+
+El resumen general muestra la ganancia bruta estimada por tienda y sustituye la tarjeta repetida de valor neto por la ganancia total. La estimación usa el costo promedio actual, descuenta unidades devueltas e identifica líneas sin costo conocido. El formulario de promociones permite filtrar los productos de la subgama por categoría. Sin cambios de esquema ni de cuentas; lista de usuarios e instrucciones de MySQL Workbench conservadas. No se ejecutaron pruebas en esta entrega. Informe: docs/PharmaBoost_Cambios_v2_38.docx.
+
+## Actualización 2.37 — Categorías
+
+CRUD para administrador con búsqueda, descripción y cantidad de productos. Selección de categorías registradas al crear o editar productos. Renombrado transaccional y eliminación bloqueada cuando existen productos. Railway aplica el esquema al desplegar; en instalaciones locales ejecutar database/categories.sql en MySQL Workbench sobre pharmaboost_js con permisos de creación de tablas, reiniciar Node y recargar. Pruebas: 30 unitarias y suites MySQL de operaciones y categorías aprobadas. Informe: docs/PharmaBoost_Cambios_v2_37.docx.
+
+
+## Actualización 2.35 — 16 de octubre de 2026
+
+Código automático publicado en GitHub (c05412b), frontend Vercel actualizado y API pública verificada con versión 2.35.0. Caché v2-35. Sin migración ni cambios de datos de producción. Informe local: docs/PharmaBoost_Cambios_v2_35.docx.
+
+
+## Actualización 2.34 — 16 de octubre de 2026
+
+Código de producto automático al crear desde Inventario, generado en servidor con prefijo PB y doce caracteres hexadecimales. Conserva códigos existentes e importados. 30 pruebas unitarias y suite MySQL transaccional aprobadas. Sin migración; reiniciar servidor y recargar Ctrl+F5. Informe: docs/PharmaBoost_Cambios_v2_34.docx.
+
 
 ## Versión 2.28 — 3 de octubre de 2026
 
