@@ -1,5 +1,6 @@
 import {workPromotions} from '../web/assignments.js';
 import {listSuppliers} from './suppliers.js';
+import {insertAutoCodeProduct} from './product-code.js';
 import {events,productState,saveDiscount,saveProductConfig} from './operations.js';
 import {unitPrice} from '../web/pricing.js';
 import {histories} from './tracking.js';
@@ -98,12 +99,13 @@ export async function reviewRegistration(db,u,id,d){
 }
 export async function saveProduct(db,u,d,id,inventory=false){
  requireRole(u,'admin');if(!inventory&&(!id||['price','stock','quantity','minimum','unit','stock_max','discount_min','discount_percent'].some(k=>Object.hasOwn(d,k))))throw new Problem('Los precios y el inventario se gestionan desde Inventario.',400);const mid=integer(d.manufacturer_id,'fabricante');await exists(db,'manufacturers',mid);if(id){await exists(db,'products',id);if((await q(db,'SELECT p.id FROM promotions p JOIN promotion_products pp ON pp.promotion_id=p.id WHERE pp.product_id=? AND p.manufacturer_id<>?',[id,mid])).length)throw new Problem('Retira el producto de promociones de otro fabricante.');}
- const fields=[text(d,'external_code',1,80),text(d,'name',2,160),text(d,'description',1,2000),inventory?integer(d.price,'precio'):Number((await q(db,'SELECT price FROM products WHERE id=? FOR UPDATE',[id]))[0].price),text(d,'category',1,80),mid];
- if(id)await q(db,'UPDATE products SET external_code=?,name=?,description=?,price=?,category=?,manufacturer_id=? WHERE id=?',[...fields,id]);else id=(await q(db,'INSERT INTO products(external_code,name,description,price,category,manufacturer_id) VALUES(?,?,?,?,?,?)',fields)).insertId;
+ let code=id?text(d,'external_code',1,80):null;
+ const fields=[text(d,'name',2,160),text(d,'description',1,2000),inventory?integer(d.price,'precio'):Number((await q(db,'SELECT price FROM products WHERE id=? FOR UPDATE',[id]))[0].price),text(d,'category',1,80),mid];
+ if(id)await q(db,'UPDATE products SET external_code=?,name=?,description=?,price=?,category=?,manufacturer_id=? WHERE id=?',[code,...fields,id]);else {const created=await insertAutoCodeProduct(db,fields);id=created.id;code=created.code;}
  if(d.photo){if(typeof d.photo!=='string'||d.photo.length>5600000||!/^[A-Za-z0-9+/]+={0,2}$/.test(d.photo))throw new Problem('Imagen inválida o demasiado grande.');const bytes=Buffer.from(d.photo,'base64');if(bytes.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw new Problem('La foto debe ser PNG.');const imageId=randomBytes(24).toString('hex');await q(db,'DELETE FROM product_images WHERE product_id=?',[id]);await q(db,'INSERT INTO product_images VALUES(?,?,?,?)',[imageId,id,bytes,now()]);await q(db,'UPDATE products SET image_url=?,image_valid=1 WHERE id=?',['/media/products/'+imageId+'.png',id]);}
  if(d.promotion_id){if(!(await q(db,'SELECT id FROM promotions WHERE id=? AND manufacturer_id=?',[integer(d.promotion_id,'promoción'),mid])).length)throw new Problem('La promoción pertenece a otro fabricante.');await q(db,'INSERT IGNORE INTO promotion_products VALUES(?,?)',[d.promotion_id,id]);}
  if(inventory){await saveDiscount(db,u,id,d);await saveProductConfig(db,u,id,d);}
- await audit(db,u,'producto','Producto guardado: '+d.name);return {id};
+ await audit(db,u,'producto','Producto guardado: '+d.name);return {id,external_code:code};
 }
 export async function importRecords(db,u,kind,d){
  requireRole(u,'admin','tic');if(!Array.isArray(d.records)||d.records.length>10000)throw new Problem('Se requiere una lista records de máximo 10000 filas.');let accepted=0;const rejected=[];

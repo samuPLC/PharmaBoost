@@ -14,13 +14,14 @@ import {Problem,text,email,hashToken,verifyPassword,requireRole} from './securit
 import * as service from './service.js';
 const web=path.resolve(fileURLToPath(new URL('../web/',import.meta.url)));
 const production=process.env.NODE_ENV==='production';
+const appVersion=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8')).version;
 const cookie=(token,clear=false)=>`pb_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${clear?0:43200}${production?'; Secure':''}`;
 const limit=createLimiter();
 function rateLimit(req,key,max=10){limit(req.socket.remoteAddress+':'+key,max);}
 async function dispatch(db,req,res,url,d){
  const route=url.pathname,method=req.method;
  if(route==='/api/public/products'&&method==='GET'){const ledger=await events(db);const products=await q(db,'SELECT p.id,p.name,p.description,p.price,p.category,p.image_url,p.image_valid,m.name manufacturer_name FROM products p JOIN manufacturers m ON m.id=p.manufacturer_id ORDER BY p.name,p.id');return {products:products.map(p=>{const extra=productState(ledger,p.id);return {...p,discount_min:extra.discount_min,discount_percent:extra.discount_percent};})};}
- if(route==='/api/health'&&method==='GET'){await q(db,'SELECT 1');return {ok:true,mode:production?'production':'development',database:'mysql'};}
+ if(route==='/api/health'&&method==='GET'){await q(db,'SELECT 1');return {ok:true,version:appVersion,mode:production?'production':'development',database:'mysql'};}
  if(route==='/api/login'&&method==='POST'){
   rateLimit(req,'login-ip',60);const mail=email(d),password=text(d,'password',1,200);rateLimit(req,mail);
   const attempt=await checkLogin(db,mail,password);if(attempt.rejected)return {loginRejected:true,lockedUntil:attempt.lockedUntil};const user=attempt.user;

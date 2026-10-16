@@ -77,7 +77,10 @@ try{
  assert.equal(productState(await events(db),pid).stock,before);
  await assert.rejects(saveProduct(db,admin,{...metadata,price:12000}),e=>e.status===400);
  const created=await saveProduct(db,admin,{...metadata,external_code:'NEW-'+randomUUID(),price:12000,unit:'unidad',stock_max:50,discount_min:0,discount_percent:0},undefined,true);
- assert(created.id);assert.equal(productState(await events(db),created.id).stock_enabled,false);
+ assert(created.id);assert.match(created.external_code,/^PB-[A-F0-9]{12}$/);assert.equal(productState(await events(db),created.id).stock_enabled,false);
+ const auto=await saveProduct(db,admin,{...metadata,price:13000},undefined,true);
+ assert.notEqual(auto.external_code,created.external_code);
+ assert.equal((await q(db,'SELECT external_code FROM products WHERE id=?',[auto.id]))[0].external_code,auto.external_code);
  console.log('OK: catálogo rechaza precios/stock/descuentos, conserva precio al editar; configuración en Inventario, permisos y creación sin stock ficticio.');
  console.log('OK: compras, proveedor requerido, costo promedio, precio calculado, idempotencia y entradas mal formadas.');
  console.log('OK: permisos, descuento y redondeo, precio manipulado, stock insuficiente, despacho único, devoluciones parciales, cuarentena, reintegro, exceso e idempotencia. Todas las pruebas se revierten.');
