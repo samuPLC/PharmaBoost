@@ -1,4 +1,8 @@
-# PharmaBoost 2.38
+# PharmaBoost 2.39
+## Actualización 2.39 — Lista de devoluciones pendientes
+
+Los pedidos entregados desaparecen del selector cuando ya se devolvieron todas sus unidades; las devoluciones parciales permanecen hasta completar las cantidades. El historial conserva todos los registros. Mensaje vacío diferenciado cuando todavía no hay pedidos entregados o cuando ya no quedan unidades pendientes. Sin cambios MySQL ni de cuentas. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_39.docx.
+
 ## Actualización 2.38 — Ganancia por tienda y filtro de categorías
 
 El resumen general muestra la ganancia bruta estimada por tienda y sustituye la tarjeta repetida de valor neto por la ganancia total. La estimación usa el costo promedio actual, descuenta unidades devueltas e identifica líneas sin costo conocido. El formulario de promociones permite filtrar los productos de la subgama por categoría. Sin cambios de esquema ni de cuentas; lista de usuarios e instrucciones de MySQL Workbench conservadas. No se ejecutaron pruebas en esta entrega. Informe: docs/PharmaBoost_Cambios_v2_38.docx.
