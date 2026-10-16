@@ -28,6 +28,13 @@ CREATE TABLE IF NOT EXISTS products (
  manufacturer_id INT NOT NULL, image_url VARCHAR(2048) NOT NULL DEFAULT '', image_valid BOOLEAN NOT NULL DEFAULT FALSE,
  FOREIGN KEY(manufacturer_id) REFERENCES manufacturers(id)
 ) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS product_manufacturers (
+ product_id INT NOT NULL, manufacturer_id INT NOT NULL, PRIMARY KEY(product_id,manufacturer_id),
+ FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,
+ FOREIGN KEY(manufacturer_id) REFERENCES manufacturers(id)
+) ENGINE=InnoDB;
+-- Conserva el fabricante existente como asociación inicial para bases previas.
+INSERT IGNORE INTO product_manufacturers(product_id,manufacturer_id) SELECT id,manufacturer_id FROM products;
 CREATE TABLE IF NOT EXISTS stores (
  id INT PRIMARY KEY AUTO_INCREMENT, external_code VARCHAR(80) NOT NULL UNIQUE, name VARCHAR(160) NOT NULL,
  address VARCHAR(300) NOT NULL, zone VARCHAR(120) NOT NULL DEFAULT '', phone VARCHAR(80) NOT NULL DEFAULT '',

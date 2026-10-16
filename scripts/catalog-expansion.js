@@ -18,6 +18,7 @@ export async function expandCatalog(db){let added=0;
   const existing=await query(db,'SELECT id FROM products WHERE external_code=?',[code]);if(existing.length)continue;
   const manufacturer=await query(db,'SELECT id FROM manufacturers WHERE id=? AND name=?',[mid,mid===1?'Laboratorios Nova':'Vitalis Pharma']);if(!manufacturer.length)throw Error('No se encontró el fabricante inicial esperado.');
   const result=await query(db,'INSERT INTO products(external_code,name,description,price,category,manufacturer_id,image_url,image_valid) VALUES(?,?,?,?,?,?,?,1)',[code,name,description,price,category,mid,`/products/${code.toLowerCase()}.svg`]);
+  await query(db,'INSERT IGNORE INTO product_manufacturers(product_id,manufacturer_id) VALUES(?,?)',[result.insertId,mid]);
   const promo=await query(db,'SELECT id FROM promotions WHERE manufacturer_id=? AND name=?',[mid,mid===1?'Bienestar que llega más lejos':'Cuidado esencial Vitalis']);
   for(const p of promo)await query(db,'INSERT IGNORE INTO promotion_products VALUES(?,?)',[p.id,result.insertId]);added++;
  }

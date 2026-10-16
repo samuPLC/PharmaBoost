@@ -1,4 +1,7 @@
-# PharmaBoost 2.40
+# PharmaBoost 2.42
+## Actualización 2.42 — Varios fabricantes por producto
+
+El formulario de producto permite asociarlo a varios fabricantes. Las promociones pueden incluir el producto para cualquiera de esos fabricantes; cada fabricante conserva sus asignaciones comerciales. El precio y el inventario son compartidos. La migración conserva las asociaciones actuales. En MySQL local ejecuta `database/product_manufacturers.sql` en Workbench; Railway la aplica al desplegar. Informe: docs/PharmaBoost_Cambios_v2_42.docx.
 ## Actualización 2.40 — Productos asociados a tiendas
 
 En **Tiendas → Ver tienda** se muestran los productos agrupados por las promociones asignadas a ese punto de venta, con categoría, código y vigencia. La lista describe asignaciones comerciales; no representa existencias físicas. Sin cambios en MySQL ni cuentas. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_40.docx.

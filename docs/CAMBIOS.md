@@ -1,4 +1,8 @@
 # Historial de cambios
+## Actualización 2.42 — Varios fabricantes por producto
+
+El formulario de producto permite asociar varios fabricantes. Las promociones pueden incluirlo cuando pertenezca al fabricante de la campaña; las asignaciones previas se conservan. El precio y el inventario siguen compartidos por producto. La tabla de asociación se crea y completa automáticamente al iniciar producción; en MySQL local ejecutar `database/product_manufacturers.sql` con Workbench. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_42.docx.
+
 ## Actualización 2.40 — Productos asociados a tiendas
 
 En **Tiendas → Ver tienda** se muestran los productos agrupados por las promociones asignadas, con categoría, código y vigencia. Se aclara que no son existencias físicas del local. Sin cambios en MySQL ni cuentas. No se ejecutaron pruebas automatizadas. Informe: docs/PharmaBoost_Cambios_v2_40.docx.
